@@ -1,4 +1,5 @@
 <script lang="ts">
+import { chat } from '@googleapis/chat';
 
 const userID = 2;
 

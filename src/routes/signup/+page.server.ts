@@ -14,7 +14,9 @@ export const actions = {
 			scope: [
 				'https://www.googleapis.com/auth/userinfo.profile',
 				'openid',
-				'https://www.googleapis.com/auth/userinfo.email'
+				'https://www.googleapis.com/auth/userinfo.email',
+				'https://www.googleapis.com/auth/chat.spaces',
+				'https://www.googleapis.com/auth/chat.messages'
 			].join(" "),
 			prompt: 'consent',
 			include_granted_scopes: true
