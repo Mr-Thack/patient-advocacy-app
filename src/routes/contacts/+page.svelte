@@ -1,5 +1,6 @@
 <script lang="ts">
-import { chat } from '@googleapis/chat';
+export let data;
+import { onMount } from 'svelte';
 
 const userID = 2;
 
@@ -43,6 +44,13 @@ const messages: Array<Message> = [
 
 let chatId = -1;
 
+console.log(data.name);
+
+
+onMount(async () => {
+    const d = await fetch('/chats');
+    console.log(d);
+})
 
 </script>
 

@@ -5,7 +5,7 @@ import { CLIENT_ID, CLIENT_SECRET } from '$env/static/private';
 
 export const actions = {
 	OAuth2: async({}) => {
-		const redirectURL = "http://localhost:5173/oauth";
+		const redirectURL = "https://kerplunk.xyz:5173/oauth";
 
 		const oa2 = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, redirectURL);
 
@@ -16,7 +16,8 @@ export const actions = {
 				'openid',
 				'https://www.googleapis.com/auth/userinfo.email',
 				'https://www.googleapis.com/auth/chat.spaces',
-				'https://www.googleapis.com/auth/chat.messages'
+				'https://www.googleapis.com/auth/chat.messages',
+                'https://www.googleapis.com/auth/chat.spaces'
 			].join(" "),
 			prompt: 'consent',
 			include_granted_scopes: true
