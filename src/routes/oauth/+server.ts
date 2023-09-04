@@ -2,10 +2,9 @@ import { redirect } from '@sveltejs/kit';
 import { OAuth2Client } from 'google-auth-library';
 import { CLIENT_ID, CLIENT_SECRET } from '$env/static/private';
 import { addUser } from '../../hooks.server';
-import google from 'googleapis';
 
-export const GET = async({url, cookies}) => {
-    const redirectURL = 'https://kerplunk.xyz:5173/oauth';
+export async function GET({url, cookies}) {
+    const redirectURL = 'http://localhost:5173/oauth';
     const code = url.searchParams.get('code');
 
     if (!code) {
@@ -20,6 +19,7 @@ export const GET = async({url, cookies}) => {
         );
 
         const { tokens } = await oa2c.getToken(code);
+
         oa2c.setCredentials(tokens);
         //@ts-ignore
         const userInfo = JSON.parse(Buffer.from(tokens.id_token.split('.')[1], 'base64').toString());
@@ -39,15 +39,9 @@ export const GET = async({url, cookies}) => {
             client: oa2c
         });
 
-        // cookies.set('token', token, { path: '/' });
-        console.log(token);
-        const chats = new google.chats_v1.Chat({auth: token});
-        chats.spaces.list({}, (err, res) => {
-            if (err) return console.error(err.message);
-            console.log(res);
-        });
+        cookies.set('token', token, { path: '/' });
     } catch(err) {
-        console.log("ERROR LOGGING IN WITH GOOGLE! ", err)
+        console.error("ERROR LOGGING IN WITH GOOGLE! ", err)
         throw(420);
     }
 

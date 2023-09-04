@@ -38,10 +38,13 @@
 </script>
 
 <ion-app>
-<IonTabs slot="bottom" tabs={tabs} ionTabsWillChange={logStuff} ionTabsDidChange={logStuff}>
-	
-	
-	
-	<slot />
-</IonTabs>
+    <ion-item>
+        <ion-label>
+            <h1>Patient Advocacy App</h1>
+        </ion-label>
+    </ion-item>
+
+    <IonTabs slot="bottom" tabs={tabs} ionTabsWillChange={logStuff} ionTabsDidChange={logStuff}>
+	    <slot />
+    </IonTabs>
 </ion-app>

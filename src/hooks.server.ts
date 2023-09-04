@@ -1,5 +1,5 @@
 import { building } from '$app/environment';
-import type OAuth2Client from 'google-auth-library';
+import type { OAuth2Client } from 'google-auth-library';
 
 
 
@@ -8,7 +8,7 @@ export type AuthUser = {
    name: string;
    email: string;
    picture: string;
-   client: typeof OAuth2Client;
+   client: OAuth2Client;
 }
 
 export type AuthDB = Map<String, AuthUser>

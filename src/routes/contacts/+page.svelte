@@ -48,8 +48,8 @@ console.log(data.name);
 
 
 onMount(async () => {
-    const d = await fetch('/chats');
-    console.log(d);
+    const data = await (await fetch('/chats')).json();
+    console.log(data);
 })
 
 </script>

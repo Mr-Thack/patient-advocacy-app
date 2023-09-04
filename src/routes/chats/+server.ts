@@ -1,23 +1,26 @@
-import google from 'googleapis';
+import { chat } from '@googleapis/chat';
+import { getUser } from '../../hooks.server';
+import { redirect, json } from '@sveltejs/kit';
+import type { OAuth2Client } from 'google-auth-library';
 
-
-export function GET({cookies}) {
+export async function GET({cookies}) {
     const token = cookies.get('token');
     
-    const user = authdb.get(token);
+    if (!token) {
+        // [TODO] change to /login
+        throw redirect(303, '/signup');
+    }
+
+    const user = getUser(token);
 
     if (!user) {
-        console.log("ERROR");
-        return new Response("HELP");
+        throw redirect(303, '/signup');
     }
     
-    const auth = user.client;
+    const auth: OAuth2Client = user.client;
 
-    try {
-        const chats = new google.chat_v1.Chat({key: token});
-        console.log(chats.spaces.list());
-    } catch(err) {
-        console.log(err);
-    }
-    return new Response("");
+    const chats = chat({version: "v1", auth: auth});
+    
+
+    return json((await chats.spaces.list()).data);
 }
